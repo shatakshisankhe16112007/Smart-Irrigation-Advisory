@@ -1,52 +1,79 @@
-
-body
-{
+body{
     font-family: Arial, sans-serif;
     background-color: #f0fff0;
+    margin: 0;
 }
 
-.container
-{
-    width: 60%;
+nav{
+    background-color: green;
+    padding: 15px;
+    text-align: center;
+}
+
+nav h2{
+    color: white;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    margin: 15px;
+    font-weight: bold;
+}
+
+.container{
+    width: 80%;
     margin: auto;
-    margin-top: 30px;
     background-color: white;
     padding: 20px;
-    border-radius: 10px;
 }
 
-h1
-{
-    text-align: center;
+h1,h2{
     color: green;
 }
 
-label
-{
+.card{
+    background-color: #e8ffe8;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border-left: 5px solid green;
+}
+
+label{
     display: block;
     margin-top: 10px;
 }
 
-input
-{
+input{
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-top: 5px;
 }
 
-button
-{
-    margin-top: 15px;
-    padding: 10px;
+button{
     width: 100%;
-    font-size: 16px;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: green;
+    color: white;
+    border: none;
     cursor: pointer;
 }
 
-#result
-{
+button:hover{
+    background-color: darkgreen;
+}
+
+#result{
     margin-top: 15px;
     padding: 15px;
+    border: 1px solid green;
+    border-radius: 5px;
     font-weight: bold;
-    border: 1px solid black;
+}
+
+footer{
+    text-align: center;
+    margin-top: 20px;
 }
