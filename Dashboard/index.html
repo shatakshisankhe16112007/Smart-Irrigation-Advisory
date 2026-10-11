@@ -1,158 +1,530 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Smart Irrigation Advisory</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js for interactive graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
-    <nav>
-        <h2>🌱 Smart Irrigation Advisory</h2>
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="#home" class="logo">🌱 SmartIrrigate</a>
 
-        <a href="#home">Home</a>
-        <a href="#problem">Problem</a>
-        <a href="#dataset">Dataset</a>
-        <a href="#statistics">Statistics</a>
-        <a href="#recommendation">AI Recommendation</a>
-        <a href="#team">Team</a>
-    </nav>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#dataset">Dataset</a>
+            <a href="#statistics">Statistics</a>
+            <a href="#visualizations">Graphs</a>
+            <a href="#advisory">Advisory</a>
+            <a href="#team">Team</a>
+        </nav>
+    </header>
 
-    <div class="container">
 
-        <section id="home">
+    <!-- Home -->
+    <section id="home" class="hero">
 
-            <h1>🌱 AI-Based Smart Irrigation Advisory for Sugarcane</h1>
+        <div class="hero-content">
 
-            <p>
-                Statistical Methods and Probability Project
-            </p>
+            <span class="tag">SMART AGRICULTURE PROJECT</span>
 
-        </section>
-
-        <hr>
-
-        <section id="problem">
-
-            <h2>Problem Statement</h2>
+            <h1>Smart Irrigation Advisory System</h1>
 
             <p>
-                To analyze soil moisture, rainfall and temperature data
-                and provide irrigation recommendations using statistical
-                methods and AI-based decision making.
+                Using agricultural data and statistical analysis
+                to support smarter irrigation decisions and
+                responsible water management.
             </p>
 
-        </section>
+            <div class="hero-buttons">
+                <a href="#statistics" class="btn primary">
+                    Explore Dashboard
+                </a>
 
-        <hr>
-
-        <section id="dataset">
-
-            <h2>Dataset Information</h2>
-
-            <ul>
-                <li>Total Observations: 2200</li>
-                <li>Variables Used: Temperature, Rainfall, Soil Moisture</li>
-                <li>Source: Kaggle</li>
-                <li>Derived Columns: Water Requirement, Irrigation Status, AI Recommendation</li>
-            </ul>
-
-        </section>
-
-        <hr>
-
-        <section id="statistics">
-
-            <h2>Statistical Analysis</h2>
-
-            <div class="card">
-                <h3>Mean</h3>
-                <p>Will be calculated from dataset</p>
+                <a href="#advisory" class="btn secondary">
+                    Get Recommendation
+                </a>
             </div>
 
-            <div class="card">
-                <h3>Median</h3>
-                <p>Will be calculated from dataset</p>
+        </div>
+
+        <div class="hero-card">
+            <div class="hero-icon">🌾</div>
+            <h3>Data-Driven Agriculture</h3>
+            <p>
+                Analyze soil moisture, rainfall and temperature
+                to understand irrigation requirements.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- Dataset -->
+    <section id="dataset" class="section">
+
+        <div class="section-heading">
+            <span class="tag">DATA OVERVIEW</span>
+            <h2>Dataset Overview</h2>
+
+            <p>
+                Statistics are calculated from the currently
+                loaded dataset.
+            </p>
+        </div>
+
+        <div class="upload-box">
+
+            <div>
+                <h3>📁 Load Agricultural Dataset</h3>
+
+                <p>
+                    Upload a CSV file or load the project's
+                    default dataset.
+                </p>
             </div>
 
-            <div class="card">
-                <h3>Mode</h3>
-                <p>Will be calculated from dataset</p>
+            <div class="upload-actions">
+
+                <input
+                    type="file"
+                    id="csvFile"
+                    accept=".csv"
+                >
+
+                <button
+                    class="btn primary"
+                    id="loadDefaultBtn"
+                    type="button"
+                >
+                    Load Project Dataset
+                </button>
+
             </div>
 
-            <div class="card">
-                <h3>Variance</h3>
-                <p>Will be calculated from dataset</p>
+        </div>
+
+        <p id="dataMessage" class="message" aria-live="polite">
+            Loading the project dataset...
+        </p>
+
+        <div class="cards">
+
+            <div class="stat-card">
+                <span>📊</span>
+                <p>Total Observations</p>
+                <h3 id="totalRows">--</h3>
             </div>
 
-            <div class="card">
-                <h3>Standard Deviation</h3>
-                <p>Will be calculated from dataset</p>
+            <div class="stat-card">
+                <span>📋</span>
+                <p>Total Variables</p>
+                <h3 id="totalColumns">--</h3>
             </div>
 
-        </section>
+            <div class="stat-card">
+                <span>⚠️</span>
+                <p>Missing Values</p>
+                <h3 id="missingValues">--</h3>
+            </div>
 
-        <hr>
+            <div class="stat-card">
+                <span>🔁</span>
+                <p>Duplicate Rows</p>
+                <h3 id="duplicateRows">--</h3>
+            </div>
 
-        <section id="recommendation">
+        </div>
 
-            <h2>AI Recommendation System</h2>
+        <div class="table-container">
 
-            <label>Soil Moisture (%)</label>
-            <input type="number" id="moisture">
+            <h3>Dataset Preview</h3>
 
-            <label>Temperature (°C)</label>
-            <input type="number" id="temperature">
+            <p id="previewMessage">
+                Load a dataset to display its first five rows.
+            </p>
 
-            <label>Rainfall (mm)</label>
-            <input type="number" id="rainfall">
+            <div class="table-scroll">
+                <table id="previewTable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
 
-            <button onclick="analyzeData()">
-                Analyze
+        </div>
+
+    </section>
+
+
+    <!-- Statistics -->
+    <section id="statistics" class="section light-section">
+
+        <div class="section-heading">
+            <span class="tag">STATISTICAL ANALYSIS</span>
+
+            <h2>Descriptive Statistics</h2>
+
+            <p>
+                Explore the central tendency and variability
+                of the numerical variables.
+            </p>
+        </div>
+
+        <div class="table-container">
+
+            <h3>Statistical Summary</h3>
+
+            <div class="table-scroll">
+
+                <table id="statisticsTable">
+
+                    <thead>
+                        <tr>
+                            <th>Measure</th>
+                            <th>Temperature</th>
+                            <th>Rainfall</th>
+                            <th>Soil Moisture</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+            <p class="note">
+                Variance and standard deviation are calculated
+                using sample formulas. Mode is calculated after
+                rounding numerical values to one decimal place.
+            </p>
+
+        </div>
+
+
+        <div class="section-heading small-heading">
+
+            <h2>Category Frequency Distribution</h2>
+
+            <p>
+                Number of observations belonging to each
+                irrigation status.
+            </p>
+
+        </div>
+
+        <div class="table-container">
+
+            <div class="table-scroll">
+
+                <table id="frequencyTable">
+
+                    <thead>
+                        <tr>
+                            <th>Irrigation Status</th>
+                            <th>Frequency</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-heading small-heading">
+
+            <h2>Correlation Analysis</h2>
+
+            <p>
+                Pearson correlation coefficients indicate
+                the strength and direction of linear relationships.
+            </p>
+
+        </div>
+
+        <div class="table-container">
+
+            <div class="table-scroll">
+
+                <table id="correlationTable">
+
+                    <thead></thead>
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+            <p class="note">
+                Correlation does not prove causation.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Graphs -->
+    <section id="visualizations" class="section">
+
+        <div class="section-heading">
+
+            <span class="tag">DATA VISUALIZATION</span>
+
+            <h2>Interactive Visualizations</h2>
+
+            <p>
+                Graphs update automatically when a new dataset
+                is loaded.
+            </p>
+
+        </div>
+
+        <div class="chart-grid">
+
+            <div class="chart-card">
+                <h3>Temperature Distribution</h3>
+                <canvas id="temperatureChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>Rainfall Distribution</h3>
+                <canvas id="rainfallChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>Soil Moisture Distribution</h3>
+                <canvas id="moistureChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>Irrigation Status</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+
+        </div>
+
+        <div class="center-button">
+
+            <button
+                class="btn primary"
+                id="downloadStatsBtn"
+                type="button"
+            >
+                Download Statistical Summary
             </button>
 
-            <h3>Result</h3>
+        </div>
 
-            <div id="result">
-                Enter values and click Analyze
+    </section>
+
+
+    <!-- Irrigation Advisory -->
+    <section id="advisory" class="section advisory-section">
+
+        <div class="section-heading">
+
+            <span class="tag">IRRIGATION DECISION SUPPORT</span>
+
+            <h2>Smart Irrigation Advisory</h2>
+
+            <p>
+                Enter environmental values to receive a
+                rule-based irrigation suggestion.
+            </p>
+
+        </div>
+
+        <div class="advisory-box">
+
+            <form id="advisoryForm">
+
+                <div class="form-group">
+
+                    <label for="moisture">
+                        Soil Moisture
+                    </label>
+
+                    <input
+                        type="number"
+                        id="moisture"
+                        step="any"
+                        min="0"
+                        max="100"
+                        placeholder="Enter soil moisture"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="temperature">
+                        Temperature (°C)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="temperature"
+                        step="any"
+                        placeholder="Enter temperature"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="rainfall">
+                        Rainfall
+                    </label>
+
+                    <input
+                        type="number"
+                        id="rainfall"
+                        step="any"
+                        min="0"
+                        placeholder="Enter rainfall"
+                        required
+                    >
+
+                </div>
+
+
+                <button class="btn primary full-button" type="submit">
+                    Analyze Conditions
+                </button>
+
+            </form>
+
+
+            <div id="recommendationResult" class="result-box">
+
+                <div class="result-icon">💧</div>
+
+                <h3>Awaiting Input</h3>
+
+                <p>
+                    Enter the environmental values to generate
+                    an irrigation suggestion.
+                </p>
+
             </div>
 
-        </section>
-
-        <hr>
-
-        <section id="team">
-
-            <h2>Project Team</h2>
-
-            <ul>
-                <li>Member 1 - GitHub & Website</li>
-                <li>Member 2 - Dataset</li>
-                <li>Member 3 - Statistics</li>
-                <li>Member 4 - Graphs</li>
-                <li>Member 5 - Dashboard</li>
-                <li>Member 6 - Report & PPT</li>
-            </ul>
-
-        </section>
-
-        <hr>
-
-        <footer>
-
-            <p>
-                Case Study: AI-Based Smart Irrigation Advisory for Sugarcane
+            <p class="note">
+                This prototype uses illustrative decision rules.
+                Its thresholds have not been validated for
+                field deployment. Verify units and consult
+                agricultural guidance before acting on a recommendation.
             </p>
 
+        </div>
+
+    </section>
+
+
+    <!-- Team -->
+    <section id="team" class="section light-section">
+
+        <div class="section-heading">
+
+            <span class="tag">OUR PROJECT</span>
+
+            <h2>Meet the Team</h2>
+
             <p>
-                Course: Statistical Methods and Probability
+                Six members working together on the
+                Smart Irrigation Advisory project.
             </p>
 
-        </footer>
+        </div>
 
-    </div>
+        <div class="team-grid">
 
-    <script src="script.js"></script>
+            <div class="team-card">
+                <div class="team-icon">👩‍💻</div>
+                <h3>Member 1</h3>
+                <p>Website Development and Integration</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">📁</div>
+                <h3>Member 2</h3>
+                <p>Dataset Preparation</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">🧮</div>
+                <h3>Member 3</h3>
+                <p>Statistical Calculations</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">📈</div>
+                <h3>Member 4</h3>
+                <p>Graphical Analysis</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">📊</div>
+                <h3>Member 5</h3>
+                <p>Advanced Statistical Analysis</p>
+            </div>
+
+            <div class="team-card">
+                <div class="team-icon">📝</div>
+                <h3>Member 6</h3>
+                <p>Report and Presentation</p>
+            </div>
+
+        </div>
+
+        <p class="note">
+            Replace the generic member labels with your team's
+            actual names before submitting the project.
+        </p>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <h3>🌱 Smart Irrigation Advisory</h3>
+
+        <p>
+            Statistical Methods and Probability Project
+        </p>
+
+        <p>
+            Academic prototype for agricultural
+            data analysis and irrigation decision support.
+        </p>
+
+        <p class="footer-small">
+            © 2026 Smart Irrigation Advisory Project
+        </p>
+
+    </footer>
 
 </body>
+
 </html>
